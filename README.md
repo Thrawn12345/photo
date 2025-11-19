@@ -43,49 +43,55 @@ photo_weblap/
 ├── app.json                    # Expo configuration
 ├── babel.config.js             # Babel configuration
 └── src/
-    └── screens/
-        ├── HomeScreen.js       # Photo gallery page
-        ├── ContactScreen.js    # Contact form and info
-        └── EventsScreen.js     # Events showcase
+    ├── components/
+    │   └── MasonryImage.js     # Smart image component for masonry layout
+    ├── context/
+    │   └── LanguageContext.js  # Language state management (EN/HU)
+    ├── screens/
+    │   ├── HomeScreen.js       # Photo gallery page
+    │   ├── ContactScreen.js    # Contact form and info
+    │   └── EventsScreen.js     # Events showcase
+    └── utils/
+        ├── photoLoader.js      # Central place to manage photos and events
+        └── translations.js     # Dictionary for English and Hungarian text
 ```
 
 ## Customization
 
 ### Adding Your Own Photos
 
-Edit the `photos` array in `src/screens/HomeScreen.js`:
+1. Add your image files to the `photos/best/` folder.
+2. Open `src/utils/photoLoader.js`.
+3. Add a new line to the `getBestPhotos` function:
 ```javascript
-const photos = [
-  {
-    id: 1,
-    url: 'YOUR_IMAGE_URL',
-    title: 'Your Photo Title',
-  },
-  // Add more photos...
-];
+{ id: 23, url: require('../../photos/best/YOUR_NEW_PHOTO.jpg'), title: 'New Photo' },
 ```
 
 ### Adding Your Events
 
-Edit the `events` array in `src/screens/EventsScreen.js`:
+1. Add your event folder and images to `photos/`.
+2. Open `src/utils/photoLoader.js`.
+3. Add a new object to the `getEvents` function:
 ```javascript
-const events = [
-  {
-    id: 1,
-    title: 'Event Name',
-    date: 'Date',
-    location: 'Location',
-    type: 'Event Type',
-    image: 'IMAGE_URL',
-    description: 'Description...',
-  },
-  // Add more events...
-];
+{
+  id: 4,
+  title: 'New Event Name',
+  date: 'Date',
+  location: 'Location',
+  type: 'Event Type',
+  description: 'Description...',
+  photos: [
+    require('../../photos/new_event/photo1.jpg'),
+    require('../../photos/new_event/photo2.jpg'),
+  ],
+  image: require('../../photos/new_event/cover.jpg'),
+},
 ```
 
 ### Updating Contact Information
 
-Edit the contact details in `src/screens/ContactScreen.js` to add your own email, phone, and location.
+Edit the contact details in `src/screens/ContactScreen.js`.
+To change the text labels (like "Phone", "Email"), edit `src/utils/translations.js`.
 
 ## Technologies Used
 
@@ -93,7 +99,8 @@ Edit the contact details in `src/screens/ContactScreen.js` to add your own email
 - React Native Web
 - Expo
 - React Navigation
-- Unsplash (for demo images)
+- Masonry Layout (CSS Grid)
+- Context API (for Localization)
 
 ## License
 
