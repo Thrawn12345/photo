@@ -1,0 +1,53 @@
+PHOTOGRAPHER PORTFOLIO - SETUP INSTRUCTIONS
+============================================
+
+✅ COMPLETED UPDATES:
+- Updated HomeScreen to display all 22 photos from the "photos/best" folder
+- Updated EventsScreen with 4 events using your photo folders:
+  * Bled Photography Session (10 photos from photos/bled)
+  * Budapest Urban Photography (13 photos from photos/bp)
+  * M5 Automotive Photography (8 photos from photos/m5)
+  * Transylvania Adventure (11 photos from photos/transilvinia)
+- Added interactive gallery: Click on any event to view all photos from that event
+- Optimized for different image sizes with proper aspect ratio handling
+
+📋 TO RUN THE APPLICATION:
+
+1. Install Node.js (if not already installed):
+   - Download from: https://nodejs.org/
+   - Choose the LTS (Long Term Support) version
+   - Run the installer and follow the prompts
+
+2. Open PowerShell/Terminal in this folder and run:
+   npm install
+
+3. Start the web application:
+   npm run web
+
+4. The app will open in your browser at: http://localhost:19006
+
+🎨 FEATURES:
+- Main Gallery: Shows all your best photos from "photos/best" folder
+- Events Page: 4 event categories with preview images
+  * Click any event card to open a full gallery modal
+  * View all photos from that specific event
+- Contact Page: Contact form and information
+- Responsive design for all screen sizes
+- Smooth navigation between pages
+
+📁 YOUR PHOTOS ARE ORGANIZED AS:
+- photos/best/ → Main gallery (22 photos)
+- photos/bled/ → Bled event (10 photos)
+- photos/bp/ → Budapest event (13 photos)
+- photos/m5/ → M5 automotive (8 photos)
+- photos/transilvinia/ → Transylvania event (11 photos)
+
+💡 CUSTOMIZATION:
+To change event titles, dates, or descriptions, edit:
+   src/screens/EventsScreen.js
+
+To change photo titles in main gallery, edit:
+   src/screens/HomeScreen.js
+
+To update contact information, edit:
+   src/screens/ContactScreen.js
