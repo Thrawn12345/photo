@@ -31,6 +31,39 @@ try {
 
     fs.writeFileSync(indexPath, content);
     console.log('Successfully updated index.html to use relative paths.');
+
+    // Fix paths in the main JavaScript bundle as well
+    const jsFiles = fs.readdirSync(path.join(distDir, '_expo/static/js/web'));
+    jsFiles.forEach(file => {
+      if (file.endsWith('.js')) {
+        const jsPath = path.join(distDir, '_expo/static/js/web', file);
+        let jsContent = fs.readFileSync(jsPath, 'utf8');
+        
+        // Replace absolute asset paths with relative paths
+        // Handle both quoted strings and template literals
+        const originalLength = jsContent.length;
+        
+        // Fix "/assets/" -> "./assets/" in all contexts
+        jsContent = jsContent.replace(/(["`'])\/assets\//g, '$1./assets/');
+        jsContent = jsContent.replace(/\\"\/assets\//g, '\\"./assets/');
+        
+        // Fix "/_expo/" -> "./_expo/" 
+        jsContent = jsContent.replace(/(["`'])\/_expo\//g, '$1./_expo/');
+        jsContent = jsContent.replace(/\\"\/_expo\//g, '\\"./_expo/');
+        
+        if (jsContent.length !== originalLength) {
+          fs.writeFileSync(jsPath, jsContent);
+          console.log(`Fixed ${jsContent.length - originalLength} characters of paths in ${file}`);
+        } else {
+          console.log(`No paths needed fixing in ${file}`);
+        }
+      }
+    });
+
+    // Create .nojekyll file to allow folders starting with _ (like _expo)
+    const noJekyllPath = path.join(distDir, '.nojekyll');
+    fs.writeFileSync(noJekyllPath, '');
+    console.log('Created .nojekyll file to bypass Jekyll processing.');
     
   } else {
     console.error('Error: dist/index.html not found. Build might have failed.');
